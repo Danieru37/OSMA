@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "916059894903",
+    "firebase_url": "https://osma-b8ce8-default-rtdb.firebaseio.com",
+    "project_id": "osma-b8ce8",
+    "storage_bucket": "osma-b8ce8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916059894903:android:fa38fb09c7c0b245980272",
+        "android_client_info": {
+          "package_name": "com.company.osma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916059894903-sulqqmdchto6ujrh4jtrrbmd3pn7pi4n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJVy1Kyh9oASKAhKGgUdSS_7y3YvGRyHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916059894903-sulqqmdchto6ujrh4jtrrbmd3pn7pi4n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916059894903:android:3e576cf5d6b1f951980272",
+        "android_client_info": {
+          "package_name": "com.example.osmarealtest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916059894903-sulqqmdchto6ujrh4jtrrbmd3pn7pi4n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJVy1Kyh9oASKAhKGgUdSS_7y3YvGRyHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916059894903-sulqqmdchto6ujrh4jtrrbmd3pn7pi4n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
