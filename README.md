@@ -1,15 +1,15 @@
-##Project Title:##
+## Project Title ##
 Online Shopping with Marketing Analysis
 
-##Project Description:##
+## Project Description ##
 This software is an online shopping software for both the customer and supplier. For customers, this program aids them in the transaction process. As for the suppliers, this program aids them in editing their sold product’s information. Also, this program views their marketing analysis within the platform in order for them to be acknowledged about their business and competition status.
 
-##Requirements and/or Dependencies used:##
+## Requirements and/or Dependencies used ##
 Android Studio 4.1.3. IDE, Javamail API (activation.jar, additional.jar and mail.jar), Firestore account and database platform itself, Android Emulator with virtual device named Android Studio Pixel 3a API 30 x86.
 
-##Environmental setup to run the project:##
+## Environmental setup to run the project ##
 
-####Setting up an Android Studio project:####
+#### Setting up an Android Studio project ####
 - Click File > New > New Project
 - In Choose your Project, select the type of project you want to create from categories of device form factors and click Next
 - Specify the Name of your project.
@@ -19,7 +19,7 @@ Android Studio 4.1.3. IDE, Javamail API (activation.jar, additional.jar and mail
 - Select the Minimum API level you want your app to support. When you select a lower API level, your app can rely on fewer modern Android APIs. However, a larger percentage of Android devices are able to run your app. The opposite is true when selecting a higher API level. If you want to see more data to help you decide, click Help me choose.
 - When you're ready to create your project, click Finish.
 
-####Connection with Cloud Firestore database####
+#### Connection with Cloud Firestore database ####
 - For instrumentation of the app to talk to the emulators (Android, iOS, and Web SDKs). Set up your in-app configuration or test classes to interact with Cloud Firestore as follows:<br/>
 
 // For Web<br/>
@@ -60,7 +60,7 @@ firebase emulators:start --import=./dir --export-on-exit
 - Here, the HTML version of the report highlights evaluations that throw undefined and null-value errors:
 ![image](https://user-images.githubusercontent.com/82215248/115719335-925ae700-a3ae-11eb-958a-5067ecd03433.png)
 
-####Setting up an Android Studio project:####
+#### Setting up an Android Studio project: ####
 - Download Javamail API for android in this site: http://code.google.com/p/javamail-android/
 
 - First step is to define a JSSE (Java Security Socket Extension) Provider. To make that, we can get JSSE Provider of the Harmony project:<br/>
@@ -187,12 +187,12 @@ new Thread(new Runnable() {<br/>
 - Now, you can launch your Android application and check that GMailSender works pretty well:
 ![image](https://user-images.githubusercontent.com/82215248/115721224-6c364680-a3b0-11eb-85a2-6bcb206b0d5f.png)
 
-Revision Log<br/>
+## Revision Log ##<br/>
 - Version 4.0
 - Description: This is the fourth revision, where there are quite many revisions speaking of content of requirements and GUI design.
 - Date Completed: 04/22/2021
 
-Information about Contributors<br/>
+## Information about Contributors ##<br/>
 - Beltran, Paul Joshua C.
   BSCpE Student in De La Salle University
   paul_beltran@dlsu.edu.ph
