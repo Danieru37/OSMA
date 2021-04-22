@@ -188,14 +188,12 @@ new Thread(new Runnable() {<br/>
 ![image](https://user-images.githubusercontent.com/82215248/115721224-6c364680-a3b0-11eb-85a2-6bcb206b0d5f.png)
 
 ## Revision Log ##
-<br/>
-- Version 4.0
+<br/>- Version 4.0
 - Description: This is the fourth revision, where there are quite many revisions speaking of content of requirements and GUI design.
 - Date Completed: 04/22/2021
 
 ## Information about Contributors ##
-<br/>
-- Beltran, Paul Joshua C.
+<br/>- Beltran, Paul Joshua C.
   BSCpE Student in De La Salle University
   paul_beltran@dlsu.edu.ph
 - De Leon, Daniel Gabriel B.
