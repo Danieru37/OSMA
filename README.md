@@ -22,14 +22,14 @@ Android Studio 4.1.3. IDE, Javamail API (activation.jar, additional.jar and mail
 #### Connection with Cloud Firestore database ####
 - For instrumentation of the app to talk to the emulators (Android, iOS, and Web SDKs). Set up your in-app configuration or test classes to interact with Cloud Firestore as follows:<br/>
 
-// For Web<br/>
-// Initialize your Web app as described in the Get started for Web<br/>
-// Firebase previously initialized using firebase.initializeApp().<br/>
-var db = firebase.firestore();<br/>
-if (location.hostname === "localhost") {<br/>
-  db.useEmulator("localhost", 8080);<br/>
-}<br/>
-//End of Code<br/>
+    // For Web<br/>
+    // Initialize your Web app as described in the Get started for Web<br/>
+    // Firebase previously initialized using firebase.initializeApp().<br/>
+    var db = firebase.firestore();<br/>
+    if (location.hostname === "localhost") {<br/>
+      db.useEmulator("localhost", 8080);<br/>
+    }<br/>
+    //End of Code<br/>
 
 - For instrumentation of the app to talk to the emulators (Admin SDKs). Set up your in-app configuration or test classes to interact with Cloud Firestore as follows: The Firebase Admin SDKs automatically connect to the Cloud Firestore emulator when the FIRESTORE_EMULATOR_HOST environment variable is set:
 export FIRESTORE_EMULATOR_HOST="localhost:8080"
@@ -64,100 +64,100 @@ firebase emulators:start --import=./dir --export-on-exit
 - Download Javamail API for android in this site: http://code.google.com/p/javamail-android/
 
 - First step is to define a JSSE (Java Security Socket Extension) Provider. To make that, we can get JSSE Provider of the Harmony project:<br/>
-//Start of Code<br/>
-public final class JSSEProvider extends Provider {<br/>
- public JSSEProvider() {<br/>
-   super("HarmonyJSSE", 1.0, "Harmony JSSE Provider");<br/>
-   AccessController.doPrivileged(new java.security.PrivilegedAction<Void>() {<br/>
-     public Void run() {<br/>
-       put("SSLContext.TLS", "org.apache.harmony.xnet.provider.jsse.SSLContextImpl");<br/>
-       put("Alg.Alias.SSLContext.TLSv1", "TLS");<br/>
-       put("KeyManagerFactory.X509", "org.apache.harmony.xnet.provider.jsse.KeyManagerFactoryImpl");<br/>
-       put("TrustManagerFactory.X509", "org.apache.harmony.xnet.provider.jsse.TrustManagerFactoryImpl");<br/>
-       return null;<br/>
+    //Start of Code<br/>
+    public final class JSSEProvider extends Provider {<br/>
+     public JSSEProvider() {<br/>
+       super("HarmonyJSSE", 1.0, "Harmony JSSE Provider");<br/>
+       AccessController.doPrivileged(new java.security.PrivilegedAction<Void>() {<br/>
+         public Void run() {<br/>
+           put("SSLContext.TLS", "org.apache.harmony.xnet.provider.jsse.SSLContextImpl");<br/>
+           put("Alg.Alias.SSLContext.TLSv1", "TLS");<br/>
+           put("KeyManagerFactory.X509", "org.apache.harmony.xnet.provider.jsse.KeyManagerFactoryImpl");<br/>
+           put("TrustManagerFactory.X509", "org.apache.harmony.xnet.provider.jsse.TrustManagerFactoryImpl");<br/>
+           return null;<br/>
+         }<br/>
+       });<br/>
      }<br/>
-   });<br/>
- }<br/>
-}<br/>
-//End of Code<br/>
+    }<br/>
+    //End of Code<br/>
   
 - To transport data during sending email, you must implement javax.activation.DataSource .Here, we choose to create a byte array implementation:<br/>
-//Start of Code<br/>
-public class ByteArrayDataSource implements DataSource {<br/>
- private byte[] data;<br/>
- private String type;<br/>
- public ByteArrayDataSource(byte[] data, String type) {<br/>
-   super();<br/>
-   this.data = data;<br/>
-   this.type = type;<br/>
- }<br/>
- public ByteArrayDataSource(byte[] data) {<br/>
-   super();<br/>
-   this.data = data;<br/>
- }<br/>
- public void setType(String type) {<br/>
-   this.type = type;<br/>
- }<br/>
- public String getContentType() {<br/>
-   if (type == null)<br/>
-     return "application/octet-stream";<br/>
-   else<br/>
-     return type;<br/>
- }<br/>
- public InputStream getInputStream() throws IOException {<br/>
-   return new ByteArrayInputStream(data);<br/>
- }<br/>
- public String getName() {<br/>
-   return "ByteArrayDataSource";<br/>
- }<br/>
- public OutputStream getOutputStream() throws IOException {<br/>
-   throw new IOException("Not Supported");<br/>
- }<br/>
-}<br/>
-//End of Code<br/>
+    //Start of Code<br/>
+    public class ByteArrayDataSource implements DataSource {<br/>
+     private byte[] data;<br/>
+     private String type;<br/>
+     public ByteArrayDataSource(byte[] data, String type) {<br/>
+       super();<br/>
+       this.data = data;<br/>
+       this.type = type;<br/>
+     }<br/>
+     public ByteArrayDataSource(byte[] data) {<br/>
+       super();<br/>
+       this.data = data;<br/>
+     }<br/>
+     public void setType(String type) {<br/>
+       this.type = type;<br/>
+     }<br/>
+     public String getContentType() {<br/>
+       if (type == null)<br/>
+         return "application/octet-stream";<br/>
+       else<br/>
+         return type;<br/>
+     }<br/>
+     public InputStream getInputStream() throws IOException {<br/>
+       return new ByteArrayInputStream(data);<br/>
+     }<br/>
+     public String getName() {<br/>
+       return "ByteArrayDataSource";<br/>
+     }<br/>
+     public OutputStream getOutputStream() throws IOException {<br/>
+       throw new IOException("Not Supported");<br/>
+     }<br/>
+    }<br/>
+    //End of Code<br/>
 
 - Third step is to create email sender object that will contain all the logic to send email. Here, we’re going to use GMail as SMTP server. So, class will be named GMailSender:<br/>
-//Start of Code<br/>
-public class GMailSender extends javax.mail.Authenticator {<br/>
- private String mailhost = "smtp.gmail.com";<br/>
- private String user;<br/>
- private String password;<br/>
- private Session session;<br/>
- static {<br/>
-   Security.addProvider(new JSSEProvider());<br/>
- }<br/>
- public GMailSender(String user, String password) {<br/>
-   this.user = user;<br/>
-   this.password = password;<br/>
-   Properties props = new Properties();<br/>
-   props.setProperty("mail.transport.protocol", "smtp");<br/>
-   props.setProperty("mail.host", mailhost);<br/>
-   props.put("mail.smtp.auth", "true");<br/>
-   props.put("mail.smtp.port", "465");<br/>
-   props.put("mail.smtp.socketFactory.port", "465");<br/>
-   props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");<br/>
-   props.put("mail.smtp.socketFactory.fallback", "false");<br/>
-   props.setProperty("mail.smtp.quitwait", "false");<br/>
-   session = Session.getDefaultInstance(props, this);<br/>
- }<br/>
- protected PasswordAuthentication getPasswordAuthentication() {<br/>
-   return new PasswordAuthentication(user, password);<br/>
- }<br/>
- public synchronized void sendMail(String subject, String body,<br/>
-   String sender, String recipients) throws Exception {<br/>
-   MimeMessage message = new MimeMessage(session);<br/>
-   DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));<br/>
-   message.setSender(new InternetAddress(sender));<br/>
-   message.setSubject(subject);<br/>
-   message.setDataHandler(handler);<br/>
-   if (recipients.indexOf(',') > 0)<br/>
-     message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));<br/>
-   else<br/>
-     message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));<br/>
-   Transport.send(message);<br/>
- }<br/>
-}<br/>
-//End of Code<br/>
+    //Start of Code<br/>
+    public class GMailSender extends javax.mail.Authenticator {<br/>
+     private String mailhost = "smtp.gmail.com";<br/>
+     private String user;<br/>
+         private String password;<br/>
+     private Session session;<br/>
+     static {<br/>
+       Security.addProvider(new JSSEProvider());<br/>
+     }<br/>
+     public GMailSender(String user, String password) {<br/>
+       this.user = user;<br/>
+       this.password = password;<br/>
+       Properties props = new Properties();<br/>
+       props.setProperty("mail.transport.protocol", "smtp");<br/>
+       props.setProperty("mail.host", mailhost);<br/>
+       props.put("mail.smtp.auth", "true");<br/>
+       props.put("mail.smtp.port", "465");<br/>
+       props.put("mail.smtp.socketFactory.port", "465");<br/>
+       props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");<br/>
+       props.put("mail.smtp.socketFactory.fallback", "false");<br/>
+       props.setProperty("mail.smtp.quitwait", "false");<br/>
+       session = Session.getDefaultInstance(props, this);<br/>
+     }<br/>
+     protected PasswordAuthentication getPasswordAuthentication() {<br/>
+       return new PasswordAuthentication(user, password);<br/>
+     }<br/>
+     public synchronized void sendMail(String subject, String body,<br/>
+       String sender, String recipients) throws Exception {<br/>
+       MimeMessage message = new MimeMessage(session);<br/>
+       DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));<br/>
+       message.setSender(new InternetAddress(sender));<br/>
+       message.setSubject(subject);<br/>
+       message.setDataHandler(handler);<br/>
+       if (recipients.indexOf(',') > 0)<br/>
+         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));<br/>
+       else<br/>
+         message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));<br/>
+       Transport.send(message);<br/>
+     }<br/>
+    }<br/>
+    //End of Code<br/>
 
 - In a static block, we add our JSSE Provider to Security class. Like our email sender is specialized for GMail, mailhost is hard coded. So, constructor takes only user and password to authenticate to SMTP server. In constructor, we define all the Properties used during the Session which we get a default instance. You need also to override getPasswordAuthentication method and you must return a PasswordAuthentication instance that use user / password entered in constructor.
 - Last step is the sendMail method that takes as arguments subject, body, sender and recipients. Here, we use MimeMessage associated to current Session. Email body is transported inside our ByteArrayDataSource previously created. To send email, we finish by call static method Transport.send with message in parameter.
@@ -165,21 +165,21 @@ To send an email, don’t forget to add Internet permission to your AndroidManif
 <uses-permission android:name=”android.permission.INTERNET” />:
 
 - It’s also important to send email in a separate Thread to avoid NetworkOnMainException. So, code is here:<br/>
-//Start of Code<br/>
-new Thread(new Runnable() {<br/>
- @Override<br/>
- public void run() {<br/>
-   try {<br/>
-     GMailSender sender = new GMailSender("sylvain.saurel@gmail.com",<br/>
-        "your_password");<br/>
-     sender.sendMail("Hello from JavaMail", "Body from JavaMail",<br/>
-        "sylvain.saurel@gmail.com", "sylvain.saurel@gmail.com");<br/>
-   } catch (Exception e) {<br/>
-     Log.e("SendMail", e.getMessage(), e);<br/>
- }<br/>
-}<br/>
-}).start();<br/>
-//End of Code<br/>
+    //Start of Code<br/>
+    new Thread(new Runnable() {<br/>
+     @Override<br/>
+     public void run() {<br/>
+       try {<br/>
+         GMailSender sender = new GMailSender("sylvain.saurel@gmail.com",<br/>
+            "your_password");<br/>
+         sender.sendMail("Hello from JavaMail", "Body from JavaMail",<br/>
+            "sylvain.saurel@gmail.com", "sylvain.saurel@gmail.com");<br/>
+       } catch (Exception e) {<br/>
+         Log.e("SendMail", e.getMessage(), e);<br/>
+     }<br/>
+    }<br/>
+    }).start();<br/>
+    //End of Code<br/>
 
 - To test the application, you must authorize external access to your GMail account by going to this page : https://www.google.com/settings/security/lesssecureapps. Then, you must enable less secure apps:
 ![image](https://user-images.githubusercontent.com/82215248/115721142-588ae000-a3b0-11eb-9c1d-36c6d9567a0b.png)
