@@ -1,6 +1,9 @@
 ## Project Title ##
 Online Shopping with Marketing Analysis
 
+Note: Due to GITHUB's limited file upload size capacity, the Gdrive link which contains the current version was sent instead
+GDrive Link: https://drive.google.com/drive/folders/160KjCf7mmSsmjBAD0TcaWoy9mtZgDRu_?usp=sharing
+
 ## Project Description ##
 This software is an online shopping software for both the customer and supplier. For customers, this program aids them in the transaction process. As for the suppliers, this program aids them in editing their sold product’s information. Also, this program views their marketing analysis within the platform in order for them to be acknowledged about their business and competition status.
 
