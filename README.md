@@ -1,7 +1,7 @@
 ## Project Title ##
 Online Shopping with Marketing Analysis
 
-Note: Due to GITHUB's limited file upload size capacity, the Gdrive link which contains the current version was sent instead
+Note: Due to GITHUB's limited file upload size capacity, the Gdrive link which contains the current version was sent instead<br/>
 GDrive Link: https://drive.google.com/drive/folders/160KjCf7mmSsmjBAD0TcaWoy9mtZgDRu_?usp=sharing
 
 ## Project Description ##
